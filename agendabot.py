@@ -3,8 +3,8 @@ import requests
 from datetime import datetime, timedelta
 
 # Configs
-matricula = "1337"
-senha = "sample"
+matricula = "matricula"
+senha = "senha"
 RU = 2
 refeicoes= ["café", "almoço", "jantar"]
 modo = "semanal"
@@ -31,7 +31,8 @@ def agenda(sessao, refeicao, ru, inicio, fim):
 
     target = "https://portal.ufsm.br/ru/usuario/agendamento/form.html"
     dados = {'periodo.fim': fim, 'periodo.inicio': inicio, 'restaurante': ru, 'tiposRefeicao': refeicao}
-    sessao.post(target, dados);
+    r = sessao.post(target, dados)
+    return sessao
 
 
 # Fazendo login
@@ -40,7 +41,7 @@ s = login(matricula, senha)
 # Adquirindo datas para modo
 if(modo == "semanal"):
     inicio = date + timedelta(days=1)
-    fim = date + timedelta(days=5)
+    fim = date + timedelta(days=6)
 else:
     inicio = date + timedelta(days=1)
     fim = date + timedelta(days=1)
